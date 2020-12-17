@@ -78,8 +78,6 @@ async def fetch_user_info(request, provider, oauth_endpoint_path, local_email_re
         if oauth_provider:
             factory_args['provider'] = provider
         client = request.app.oauth_factory(**factory_args)
-        print(client)
-        print(factory_args)
         try:
             user, _info = await client.user_info()
         except (KeyError, HTTPBadRequest) as exc:
