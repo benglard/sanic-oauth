@@ -19,6 +19,7 @@ Available providers (in alphabetic order):
 - Google
 - LinkedIn
 - Meetup
+- Naver
 - ok.ru
 - Pinterest
 - Plurk
@@ -41,7 +42,7 @@ Installation
 
 Just install via pip:
 
-.. code:: 
+.. code::
 
     pip install sanic_oauth
 
@@ -51,14 +52,14 @@ Note, that to use blueprint correctly, you need to additionally install :code:`s
 Usage
 =====
 
-Simple way for use this is blueprint with oauth configuration. 
+Simple way for use this is blueprint with oauth configuration.
 
 But, before use it you need to:
 
 1. Create :code:`aiohttp.ClientSession` and bind to app like :code:`async_session` variable.
 2. Create session interface from :code:`sanic-session` package and bind it to app like :code:`session_interface` variable.
 3. Configure :code:`app.config` settings. You should pass :code:`OAUTH_PROVIDER, OAUTH_REDIRECT_URI, OAUTH_SCOPE` and another settings, for example, :code:`OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET`. Every setting with :code:`OAUTH` prefix will be passed to oauth provider construction.
-4. Apply blueprint 
+4. Apply blueprint
 5. Add decorator :code:`login_required` to routes, that required oauth.
 
 

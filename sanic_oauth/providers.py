@@ -13,6 +13,31 @@ __maintainer__ = "Bogdan Gladyshev"
 __email__ = "siredvin.dark@gmail.com"
 __status__ = "Production"
 
+class NaverClient(OAuth2Client):
+
+    """Support Naver.
+    * Dashboard: https://developers.naver.com/apps/#/list
+    * Docs: https://developers.naver.com/docs/login/overview/
+    * API reference: https://developers.naver.com/docs/login/api/
+    * API tutorial: https://developers.naver.com/docs/login/web/
+    """
+
+    access_token_url = 'https://nid.naver.com/oauth2.0/token'
+    authorize_url = 'https://nid.naver.com/oauth2.0/authorize'
+    base_url = None
+    name = 'naver'
+    user_info_url = 'https://openapi.naver.com/v1/nid/me'
+    @classmethod
+    def user_parse(cls, data) -> UserInfo:
+        """Parse information from provider."""
+        return UserInfo(
+            id=data.get('sub', data.get('id')),
+            email=data.get('email'),
+            verified_email=data.get('verified_email'),
+            first_name=data.get('given_name'),
+            last_name=data.get('family_name'),
+            picture=data.get('picture'),
+        )
 
 class GoogleClient(OAuth2Client):
 
@@ -33,12 +58,14 @@ class GoogleClient(OAuth2Client):
     def user_parse(cls, data) -> UserInfo:
         """Parse information from provider."""
         return UserInfo(
-            id=data.get('sub', data.get('id')),
+            id=data.get('id'),
+            nickname=data.get('nickname'),
+            name=data.get('name'),
             email=data.get('email'),
-            verified_email=data.get('verified_email'),
-            first_name=data.get('given_name'),
-            last_name=data.get('family_name'),
-            picture=data.get('picture'),
+            gender=data.get('gender'),
+            age=data.get('age'),
+            birthday=data.get('birthday'),
+            profile_image=data.get('profile_image'),
         )
 
 
