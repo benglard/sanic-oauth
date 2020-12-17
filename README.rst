@@ -40,11 +40,12 @@ Requirements
 Installation
 ============
 
-Just install via pip:
+1. Download Zip of this repository.
+2. Install via pip:
 
 .. code::
 
-    pip install sanic_oauth
+    pip install <path_to_the_zip_file>
 
 Note, that to use blueprint correctly, you need to additionally install :code:`sanic` and :code:`sanic-session`.
 
