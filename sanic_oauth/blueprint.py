@@ -140,7 +140,7 @@ def login_required(
         if "token" not in request["session"]:
             if provider:
                 request["session"]["oauth_provider"] = provider
-            request["session"]["after_auth_redirect"] = request.path
+            request["session"]["after_auth_redirect"] = request.url
             return redirect(oauth_endpoint_path)
 
         # Shortcircuit out if we don't care about user info
