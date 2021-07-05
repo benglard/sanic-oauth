@@ -3,6 +3,7 @@ aiohttp==3.7.4.post0
 astroid==2.6.2
 async-timeout==3.0.1
 attrs==21.2.0
+bump2version==1.0.1
 chardet==4.0.0
 httptools==0.2.0
 idna==3.2
