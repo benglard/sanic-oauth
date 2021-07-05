@@ -1,44 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from os import path as op
+import os.path
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 
 def _read(fname):
     try:
-        return open(op.join(op.dirname(__file__), fname)).read()
+        return open(os.path.join(os.path.dirname(__file__), fname)).read()
     except IOError:
-        return ''
+        return ""
 
 
 setup(
-    name='sanic-oauth',
-    version='0.4.1',
-    license='MIT',
-    long_description=_read('README.rst'),
-    keywords=['asyncio', 'http', 'oauth', 'sanic'],
-    author='Gladyshev Bogdan',
+    name="sanic-oauth",
+    version="0.4.1",
+    license="MIT",
+    long_description=_read("README.rst"),
+    keywords=["asyncio", "http", "oauth", "sanic"],
+    author="Lewis Gaul",
     packages=find_packages(),
-    author_email='siredvin.dark@gmail.com',
-    url='https://gitlab.com/SirEdvin/sanic-oauth',
+    author_email="lewis.gaul@gmail.com",
+    url="https://github.com/LewisGaul/sanic-oauth",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Natural Language :: Russian',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python',
-        'Framework :: AsyncIO',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Software Development :: Testing',
-        'Topic :: Utilities',
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python",
+        "Framework :: AsyncIO",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Testing",
+        "Topic :: Utilities",
     ],
     install_requires=[
-        "yarl~=1.2.6",
-        "aiohttp~=3.3.2",
-        "ujson~=1.35",
+        "aiohttp",
+        "yarl",
     ],
 )
