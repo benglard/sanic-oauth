@@ -47,7 +47,7 @@ Installation
 
     pip install <path_to_the_zip_file>
 
-Note, that to use blueprint correctly, you need to additionally install :code:`sanic` and :code:`sanic-session`.
+Note, that to use blueprint correctly, you need to additionally install :code:`sanic>=20.0` and :code:`sanic-session`.
 
 
 Usage
