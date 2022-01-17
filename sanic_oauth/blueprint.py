@@ -22,7 +22,7 @@ __status__ = "Production"
 
 _log = logging.getLogger(__name__)
 
-oauth_blueprint = Blueprint("OAuth Configuration")  # pylint: disable=invalid-name
+oauth_blueprint = Blueprint("OAuth_Configuration")  # pylint: disable=invalid-name
 
 
 class OAuthConfigurationException(Exception):
