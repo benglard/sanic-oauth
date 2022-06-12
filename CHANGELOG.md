@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [0.5.2] - 2022-06-12
+
+### Fixed
+
+- More Sanic v21 support (still with a known issue)
+- Fixed version numbers
+
+
+## [0.5.1] - 2022-01-17
+
+### Changed
+
+- Support Sanic v21
+
+
+## [0.5.0] - 2021-07-05
+
+### Changed
+
+- Support Sanic v20
+- Project tidy-up
+
+
+## [0.4.1] - 2021-01-18
+
+### Changed
+
+- [Meta] First release of fork under LewisGaul user
+- Format the codebase with black and isort
+
+### Fixed
+
+- Fix to ensure full URL redirection
+
+
 ## [0.4.0] - 2019-03-09
 
 ### Added
