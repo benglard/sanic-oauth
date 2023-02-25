@@ -25,7 +25,7 @@ __status__ = "Production"
 _log = logging.getLogger(__name__)
 
 
-class UserInfo:  # pylint: disable=too-few-public-methods
+class UserInfo(dict):  # pylint: disable=too-few-public-methods
 
     default_attrs = [
         "id",
@@ -42,11 +42,16 @@ class UserInfo:  # pylint: disable=too-few-public-methods
     ]
 
     def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
         for attr in self.default_attrs:
-            setattr(self, attr, "")
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+            if attr not in self:
+                self[attr] = ''
 
+    def __setattr__(self, name, value):
+        self[name] = value
+
+    def __getattr__(self, name):
+        return self[name]
 
 class Signature(abc.ABC):
 

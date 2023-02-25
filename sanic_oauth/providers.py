@@ -529,6 +529,22 @@ class GithubClient(OAuth2Client):
     name = "github"
     user_info_url = "https://api.github.com/user"
 
+    async def request(
+        self,
+        method: str,
+        url: str,
+        params: Dict[str, str] = None,
+        headers: Dict[str, str] = None,
+        **aio_kwargs,
+    ) -> ClientResponse:
+        """Request OAuth2 resource."""
+        if self.access_token:
+            headers = headers or {}
+            headers["Authorization"] = "Bearer {}".format(self.access_token)
+        return await self.aiohttp_session.request(
+            method, url, params=params, headers=headers, **aio_kwargs
+        )
+
     @classmethod
     def user_parse(cls, data) -> UserInfo:
         """Parse information from provider."""

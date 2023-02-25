@@ -162,9 +162,9 @@ async def configuration_check(sanic_app: Sanic, _loop) -> None:
         raise OAuthConfigurationException(
             "You should configure async_session with aiohttp.ClientSession"
         )
-    if not hasattr(sanic_app.ctx, "session_interface"):
+    if not hasattr(sanic_app.ctx, "session"):
         raise OAuthConfigurationException(
-            "You should configure session_interface from sanic-session"
+            "You should configure session from sanic-session"
         )
 
 
@@ -266,8 +266,8 @@ def legacy_oauth_configuration(
     return client_setting, provider_class
 
 
-@oauth_blueprint.listener("after_server_start")
-async def create_oauth_factory(sanic_app: Sanic, _loop) -> None:
+# @oauth_blueprint.listener("after_server_start")
+def create_oauth_factory(sanic_app: Sanic, _loop) -> None:
     from .core import Client
 
     sanic_app.config.setdefault("OAUTH_AFTER_AUTH_DEFAULT_REDIRECT", "/")
