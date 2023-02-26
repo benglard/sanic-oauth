@@ -2,7 +2,7 @@ import importlib
 import logging
 import re
 import typing
-from functools import partial
+from functools import partial, wraps
 
 from aiohttp.web_exceptions import HTTPBadRequest
 from sanic import Blueprint, Sanic
@@ -153,7 +153,7 @@ def login_required(
         )
         return await async_handler(request, user, **kwargs)
 
-    return wrapped
+    return wraps(async_handler)(wrapped)
 
 
 @oauth_blueprint.listener("after_server_start")
