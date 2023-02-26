@@ -2,6 +2,8 @@ from typing import Dict, Tuple
 
 from aiohttp import BasicAuth, ClientResponse
 
+import ujson as json
+
 from .core import OAuth1Client, OAuth2Client, UserInfo
 
 __author__ = "Bogdan Gladyshev"
@@ -541,9 +543,25 @@ class GithubClient(OAuth2Client):
         if self.access_token:
             headers = headers or {}
             headers["Authorization"] = "Bearer {}".format(self.access_token)
-        return await self.aiohttp_session.request(
+        resp = await self.aiohttp_session.request(
             method, url, params=params, headers=headers, **aio_kwargs
         )
+        if not self.access_token:
+            return resp
+        if resp.status != 200:
+            return resp
+        data = await resp.json()
+        resp2 = await self.aiohttp_session.request(
+            method, url + "/emails", params=params, headers=headers, **aio_kwargs
+        )
+        if resp2.status == 200:
+            emails = await resp2.json()
+            for email in emails:
+                if email.get("primary"):
+                    data["email"] = email.get("email")
+                    break
+        resp._body = json.dumps(data).encode()
+        return resp
 
     @classmethod
     def user_parse(cls, data) -> UserInfo:
