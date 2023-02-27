@@ -158,9 +158,9 @@ def login_required(
 
 @oauth_blueprint.listener("after_server_start")
 async def configuration_check(sanic_app: Sanic, _loop) -> None:
-    if not hasattr(sanic_app.ctx, "async_session"):
+    if not hasattr(sanic_app.ctx, "http_client"):
         raise OAuthConfigurationException(
-            "You should configure async_session with aiohttp.ClientSession"
+            "You should configure http_client with aiohttp.ClientSession"
         )
     if not hasattr(sanic_app.ctx, "session"):
         raise OAuthConfigurationException(
@@ -303,7 +303,7 @@ def create_oauth_factory(sanic_app: Sanic, _loop) -> None:
             use_provider_class = provider_class
             use_client_setting = client_setting
         result = use_provider_class(
-            sanic_app.ctx.async_session, access_token=access_token, **use_client_setting
+            sanic_app.ctx.http_client, access_token=access_token, **use_client_setting
         )
         return result
 
