@@ -95,12 +95,14 @@ async def fetch_user_info(
 
 
 def login_required(
-    async_handler=None, provider=None, add_user_info=True, email_regex=None
+    async_handler=None, provider=None, add_user_info=True, email_regex=None, inject_user=True
 ):
     """
     auth decorator
     call function(request, user: <sanic_oauth UserInfo object>)
     """
+
+    add_user_info = add_user_info or inject_user
 
     if async_handler is None:
         return partial(
