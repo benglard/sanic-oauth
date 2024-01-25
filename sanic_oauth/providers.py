@@ -65,12 +65,16 @@ class GoogleClient(OAuth2Client):
         return UserInfo(
             id=data.get("id"),
             nickname=data.get("nickname"),
+            first_name=data.get("given_name"),
+            last_name=data.get("family_name"),
             name=data.get("name"),
             email=data.get("email"),
             gender=data.get("gender"),
             age=data.get("age"),
             birthday=data.get("birthday"),
-            profile_image=data.get("profile_image"),
+            profile_image=data.get("picture"),
+            locale=data.get("locale"),
+            hd=data.get("hd"),
         )
 
 
