@@ -1,4 +1,5 @@
 from typing import Dict, Tuple
+from os import getenv
 
 from aiohttp import BasicAuth, ClientResponse
 
@@ -787,4 +788,51 @@ class DiscordClient(OAuth2Client):
             avatar=data.get("avatar"),
             verified=data.get("verified"),
             email=data.get("email"),
+        )
+    
+
+_okta_domain = getenv('OKTA_DOMAIN')
+class OktaClient(OAuth2Client):
+
+    """Support Okta.
+    """
+
+    access_token_url = f"https://{_okta_domain}/oauth2/v1/token"
+    authorize_url = f"https://{_okta_domain}/oauth2/v1/authorize"
+    base_url = f"https://{_okta_domain}/oauth2/v1/"
+    user_info_url = f"https://{_okta_domain}/oauth2/v1/userinfo"
+    name = "okta"
+
+    async def request(
+        self,
+        method: str,
+        url: str,
+        params: Dict[str, str] = None,
+        headers: Dict[str, str] = None,
+        **aio_kwargs,
+    ) -> ClientResponse:
+        """Request OAuth2 resource."""
+        if self.access_token:
+            headers = headers or {}
+            headers["Authorization"] = "Bearer {}".format(self.access_token)
+        return await self.aiohttp_session.request(
+            method, url, params=params, headers=headers, **aio_kwargs
+        )
+
+    @classmethod
+    def user_parse(cls, data) -> UserInfo:
+        """Parse information from provider."""
+        return UserInfo(
+            id=data.get("sub"),
+            nickname=data.get("nickname"),
+            first_name=data.get("given_name"),
+            last_name=data.get("family_name"),
+            name=data.get("name"),
+            email=data.get("email"),
+            gender=data.get("gender"),
+            age=data.get("age"),
+            birthday=data.get("birthday"),
+            profile_image=data.get("profile"),
+            locale=data.get("locale"),
+            hd=data.get("hd"),
         )
